@@ -1,0 +1,20 @@
+    <form method="post" action="/itemProfile/<%=resultsArts._id%>/edit">
+        <!--<input type="hidden" name="_method" value="PUT"> needs this hidden input for PUT to work-->
+ 
+         <div>
+            <p>Type: <input type="text" name="type" value="<%=resultsArts.type%>" required></p>
+            <p>Brand: <input type="text" name="brand" value="<%=resultsArts.brand%>" required></p>
+            <p>Price: $<input type="text" name="price" value="<%=resultsArts.price%>" required></p>
+           <p>Image URL <input type="text" name="imageLink" value="<%=resultsArts.imageLink%>" required></p>
+        </div>
+
+        <button type="submit">Update</button>
+
+    </form>
+
+
+<form method="POST" action="/itemProfile/<%=resultsArts._id%>/delete">
+<button type="submit">Delete</button></a> <!-- TYPE HAS TO BE SUBMIT FOR A POST METHOD -->
+  </form>
+
+    <p> <a href="/articlespage"> HOME PAGE</a> </p> 

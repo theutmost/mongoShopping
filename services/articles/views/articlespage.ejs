@@ -1,0 +1,111 @@
+<% include header %>
+
+    <div class="profileBox">
+
+        <div id="cart">
+            <p> BUILD YOUR OUTFIT:</p>
+            <div id="thingsInCart">
+
+            </div>
+            <button onclick="clearOut()">Clear Out</a></button></br>
+            <button onclick="saveToOutfits()">Save Outfits Collection</a></button>
+        </div>
+
+
+
+        <div class="squarebox">
+            <% for (var i = 0, j=0; i < resultsArts.length, j < resultsArts.length; i++, j++) { %>
+                <% if (i %2 == 1) { %>
+                    <div class="rightbox">
+                        <!-- ODDS, Bottom / Accessories -->
+                        <div><b><%= resultsArts[i].type %></b></div>
+                        <div>Brand:
+                            <%= resultsArts[i].brand %>
+                        </div>
+                        <div>Price: $
+                            <%= resultsArts[i].price %>
+                        </div><br>
+                        <div><img width="50%" src="<%= resultsArts[i].imageLink %>"></div>
+                        <a href="/itemProfile/<%=resultsArts[i]._id%>/edit">Change or Delete</a></br>
+                        <button id="<%=resultsArts[i].id%>" price="<%=resultsArts[i].price%>" imageLink="<%=resultsArts[i].imageLink%>" onclick="addItem(this)">Add to Outfit Cart</button>
+                    </div>
+        </div>
+        <p>
+            <% } %>
+    </div>
+    <div>
+        <% if (j %2 == 0) { %>
+            <div class="leftbox">
+                <!-- EVENS, Top / Shoes -->
+                <div><b><%= resultsArts[j].type %></b></div>
+                <div>Brand:
+                    <%= resultsArts[j].brand %>
+                </div>
+                <div id="pname">Price: $
+                    <%= resultsArts[j].price %>
+                </div><br>
+                <div id="pimage"><img width="50%" src="<%= resultsArts[j].imageLink %>"></div>
+                <a href="/itemProfile/<%=resultsArts[i]._id%>/edit">Change or Delete</a></br>
+                <button id="<%=resultsArts[i].id%>" price="<%=resultsArts[i].price%>" imageLink="<%=resultsArts[i].imageLink%>" onclick="addItem(this)">Add to Outfit Cart</button>
+                <!-- ABOVE, in the btn tag, we included the price="" and imageLink="" bc we'll need to ref it to see in our cart-->
+            </div>
+    </div>
+    <p>
+        <% } %>
+            <% } %>
+                </div>
+
+
+                </div>
+
+
+                <a href="/article/create"><button>Add new article</button></a>
+
+
+                <script>
+                    var basket = {};
+                    var counter = 0;
+
+
+                    function addItem(article) { // in there, article "THIS" (which reps the whole element/tag)
+                        var id = article.getAttribute("id");
+                        var price = article.getAttribute("price");
+                        var imageLink = article.getAttribute("imageLink");
+                        console.log(id + " & " + price + " & " + imageLink);
+
+                        basket[counter] = id; // adding clicked articles into the  basket.
+                        counter++;
+                        console.log(Object.keys(id[0]));
+
+                        document.getElementById("thingsInCart").innerHTML += "<p>Price: $ " + price + "</p><p><img width='90px' src='" + imageLink + "'> </p>";
+                    };
+
+
+                    function clearOut() {
+                        basket = [];
+                        document.getElementById("thingsInCart").innerHTML = " ";
+
+                    };
+
+
+                    function saveToOutfits() {
+                        // var request = new XMLHttpRequest();
+                        // request.open("POST", "/createdincart", true); // method, where it's going, true
+                        // // request.setRequestHeader("Content-Type", "text/plain");
+                        // console.log("this is working");
+                        // var stringifyBasket = (JSON.stringify(basket));
+                        // console.log(stringifyBasket);
+                        // request.send('stringifyBasket');
+                        $.ajax(
+                            {
+                                type: "POST",
+                                url: "/createdincart",
+                                data: basket
+                            }
+                        )
+                    }
+                </script>
+
+                </body>
+
+                </html>

@@ -1,0 +1,29 @@
+.rightbox{
+    /*float: right;*/
+      display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    width: 200px;
+}
+
+.leftbox{
+    float: left;
+      display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    width: 200px;
+
+}
+
+.profileBox{
+    /*text-align: center;*/
+        position: flex;
+
+}
+
+
+#cart{
+    float: right;
+      display: inline-block;
+
+}
