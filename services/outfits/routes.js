@@ -13,7 +13,10 @@ router.get('/outfitspage', (req, res) => {
         if (error){
             console(error);
         } else {
-            res.render("outfitspage", {resultsArts: results})
+            console.log(results)
+            res.render("outfitspage", 
+            {outfitOfArts: results,  // 1st variable, data of user collections
+            myPicksOutfits: ""}); // 2nd variable, data of my picked collections
         };
     });
 })

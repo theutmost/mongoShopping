@@ -1,10 +1,22 @@
-yo this the dope shit
+<h1>Here are my outfit picks...</h1>
+<div>
+    <img height="90px" src="https://i.ytimg.com/vi/wFfqJ9q3wUc/maxresdefault.jpg">
+    <img height="90px" src="http://2.bp.blogspot.com/-HWVne6XFKCs/UMtiIYGq7YI/AAAAAAAABEE/l_2DFDwaSkQ/s1600/Christmas+Party+dresses+2+copy.jpg">
+    <img height="90px" src="https://i.ytimg.com/vi/sUnA5tRJz0U/maxresdefault.jpg">
+</div>
 
-
+<h1>Here are YOUR outfit picks...</h1>
 <p>
 
-<% for (var i = 0; i < 5; i++){ %>
-    <%= i %>
-<% } %>
-
+    <% if (outfitOfArts){ %>
+        <div>
+            <% for (var i = 0; i < outfitOfArts.length; i++){ %>
+                <div>
+                    <%= outfitOfArts[i].brand %>
+                        $
+                        <%= outfitOfArts[i].price %> <br>
+                            <img height="40px" src="<%= outfitOfArts[i].imageLink %>"> </div>
+                <% }  %>
+                 </div>
+        <% } %>
 </p>

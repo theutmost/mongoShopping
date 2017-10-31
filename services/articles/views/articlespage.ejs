@@ -8,7 +8,9 @@
 
             </div>
             <button onclick="clearOut()">Clear Out</a></button></br>
-            <button onclick="saveToOutfits()">Save Outfits Collection</a></button>
+            <form id="oufit-form" method="POST" action="/createdincart">
+                <button type="submit">Save Outfits Collection</a></button>
+            </form>
         </div>
 
 
@@ -73,12 +75,27 @@
                         var imageLink = article.getAttribute("imageLink");
                         console.log(id + " & " + price + " & " + imageLink);
 
-                        basket[counter] = id; // adding clicked articles into the  basket.
-                        counter++;
+                        fill_form(id);
+
+                        // basket[counter] = id; // adding clicked articles into the  basket.
+                        // counter++;
                         console.log(Object.keys(id[0]));
 
                         document.getElementById("thingsInCart").innerHTML += "<p>Price: $ " + price + "</p><p><img width='90px' src='" + imageLink + "'> </p>";
                     };
+
+                    function fill_form(article_id) { // hidden form 
+                        var form = document.getElementById('oufit-form');
+                        console.log(form)
+                        var new_field = document.createElement("INPUT");
+                        new_field.setAttribute("type", "hidden"); // hides input field from appearing
+                        new_field.setAttribute("name", "article"+ counter);
+                        new_field.id = 'article_id' + counter;
+                        counter++;
+                        new_field.value = article_id;
+                        console.log(new_field)
+                        form.appendChild(new_field);
+                    }
 
 
                     function clearOut() {
@@ -86,24 +103,6 @@
                         document.getElementById("thingsInCart").innerHTML = " ";
 
                     };
-
-
-                    function saveToOutfits() {
-                        // var request = new XMLHttpRequest();
-                        // request.open("POST", "/createdincart", true); // method, where it's going, true
-                        // // request.setRequestHeader("Content-Type", "text/plain");
-                        // console.log("this is working");
-                        // var stringifyBasket = (JSON.stringify(basket));
-                        // console.log(stringifyBasket);
-                        // request.send('stringifyBasket');
-                        $.ajax(
-                            {
-                                type: "POST",
-                                url: "/createdincart",
-                                data: basket
-                            }
-                        )
-                    }
                 </script>
 
                 </body>

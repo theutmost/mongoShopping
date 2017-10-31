@@ -109,30 +109,28 @@ router.post('/itemProfile/:id/delete', function (req, res) {
 
 router.post('/createdincart', (req, res) => {
     console.log("going goin thru router");
-    // ---- below is the conversion from string to just array----------------------
+    console.log(req.body);
 
-    var objOfArticles = req.body;
-    var allIDs = Object.values(objOfArticles); //youre only getting IDs cause thats what i'm sending from FE
-    // console.log(allIDs);
+                // ---- below is the conversion from string to just array----------------------
 
-    for (var i = 0; i < allIDs.length; i++) {
-        allIDs[i] = mongoose.Types.ObjectId(allIDs[i]) // here it changes from string to mongoose ID
-    }
-    // console.log(allIDs);
+             var objOfArticles = req.body;
+                var allIDs = Object.values(objOfArticles); //youre only getting IDs cause thats what i'm sending from FE
+                // console.log(allIDs);
 
-    // ---- below is the mongoose request----------------------
+                for (var i = 0; i < allIDs.length; i++) {
+                    allIDs[i] = mongoose.Types.ObjectId(allIDs[i]) // here it changes from string to mongoose ID
+                }
+                // console.log(allIDs);
 
-    Article.find({ _id: allIDs }, function (err, results) {
-        if (err) {
-            res.send(err);
-        } else {
-            console.log(results)
-            res.render("index", {resultsArts: results})
+                // ---- below is the mongoose request----------------------
 
-            // res.render("itemProfile")
-            console.log('not rendering')
-        }
-    })
+                Article.find({ _id: allIDs }, function (err, results) {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        res.render("outfitspage", {outfitOfArts: results})
+                    }
+                }) 
 })
 
 
