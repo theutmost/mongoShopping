@@ -9,20 +9,27 @@
 
 
 <div id="outfitList">
-    <% for (var i = 0; i < data.length; i++){ 
+    <% for (var i = data.length-1; i>=0; i--){ 
         var outfits = data[i] %>
         <div class="outfits">
-            <% for (var j = 0; outfits.length; j++){
+            <% for (var j = 0; j<outfits.length; j++){
               var article = outfits[j] %>
                 <div class="article">
                     <p>
-                       namers
+                      Brand: <%= article.brand %>
                     </p>
                     <p>
-                       link
+                    $ <%= article.price %>
                     </p>
-                <div>
-            <% } %>
-        </div>
+                     <p>
+                    <img width="40px" src="<%= article.imageLink %>">
+                    </p>
+                <div> 
+
+            <% } %> <form id="delOufit-form" method="POST" action="/deleteOutfit">
+                <button type="submit">DELETE OUTFIT</button>
+                </form>
+                
+        </div> ------------------------------------
     <% } %>
 </div>
