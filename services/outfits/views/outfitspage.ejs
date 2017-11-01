@@ -6,17 +6,23 @@
 </div>
 
 <h1>Here are YOUR outfit picks...</h1>
-<p>
 
-    <% if (outfitOfArts){ %>
-        <div>
-            <% for (var i = 0; i < outfitOfArts.length; i++){ %>
+
+<div id="outfitList">
+    <% for (var i = 0; i < data.length; i++){ 
+        var outfits = data[i] %>
+        <div class="outfits">
+            <% for (var j = 0; outfits.length; j++){
+              var article = outfits[j] %>
+                <div class="article">
+                    <p>
+                       namers
+                    </p>
+                    <p>
+                       link
+                    </p>
                 <div>
-                    <%= outfitOfArts[i].brand %>
-                        $
-                        <%= outfitOfArts[i].price %> <br>
-                            <img height="40px" src="<%= outfitOfArts[i].imageLink %>"> </div>
-                <% }  %>
-                 </div>
-        <% } %>
-</p>
+            <% } %>
+        </div>
+    <% } %>
+</div>

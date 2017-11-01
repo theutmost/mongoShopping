@@ -2,6 +2,8 @@
 var express = require("express");
 var router = express.Router();
 var mongoose = require("mongoose");
+var Outfits = require("../outfits/outfitCollection");
+
 
 //loading the models/schemas for the items in article
 var Article = require("./articlesCollection");
@@ -108,30 +110,46 @@ router.post('/itemProfile/:id/delete', function (req, res) {
 
 
 router.post('/createdincart', (req, res) => {
-    console.log("going goin thru router");
-    console.log(req.body);
+    // console.log("going goin thru router");
+    // console.log(req.body);
 
-                // ---- below is the conversion from string to just array----------------------
+    // ---- below is the conversion from string to just array----------------------
 
-             var objOfArticles = req.body;
-                var allIDs = Object.values(objOfArticles); //youre only getting IDs cause thats what i'm sending from FE
-                // console.log(allIDs);
+    var objOfArticles = req.body;
+    var allIDs = Object.values(objOfArticles); //youre only getting IDs cause thats what i'm sending from FE
+    // console.log(allIDs);
 
-                for (var i = 0; i < allIDs.length; i++) {
-                    allIDs[i] = mongoose.Types.ObjectId(allIDs[i]) // here it changes from string to mongoose ID
-                }
-                // console.log(allIDs);
+    for (var i = 0; i < allIDs.length; i++) {
+        allIDs[i] = mongoose.Types.ObjectId(allIDs[i]) // here it changes from string to mongoose ID
+    }
+    // console.log(allIDs);
 
-                // ---- below is the mongoose request----------------------
+    // ---- below is the mongoose request----------------------
 
-                Article.find({ _id: allIDs }, function (err, results) {
-                    if (err) {
-                        res.send(err);
+    /* Article.find({ _id: allIDs }, function (err, results) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.render("outfitspage", {outfitOfArts: results})
+        }
+    }) */
+
+    // creating outfits in the Outfits db/collection, not the Arts collection
+    Outfits.create(
+                {
+                    articles: allIDs,
+                    name: "Steppas Style",
+                    brand: "Steppas Ireland",
+                    itemsInArr: allIDs.length,
+                }, function(err, response){
+                    if (err){
+                        return err;
                     } else {
-                        res.render("outfitspage", {outfitOfArts: results})
-                    }
-                }) 
-})
+                        console.log("worked, saving to the outfits collection");
+                        res.redirect("/outfitspage");
+                    }  
+                })
+        })
 
 
 //---------------
